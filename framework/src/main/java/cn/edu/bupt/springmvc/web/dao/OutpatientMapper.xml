@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.edu.bupt.springmvc.web.dao.OutpatientMapper" >
+  <resultMap id="OutpatientBaseResultMap" type="cn.edu.bupt.springmvc.web.model.Outpatient" >
+    <id column="outpatientId" property="outpatientid" jdbcType="CHAR" />
+    <result column="outpatientName" property="outpatientname" jdbcType="VARCHAR" />
+    <result column="sectionId" property="sectionid" jdbcType="CHAR" />
+    <result column="sectionName" property="sectionname" jdbcType="VARCHAR" />
+    <result column="doctorName" property="doctorname" jdbcType="VARCHAR" />
+    <result column="outpatientLoc" property="outpatientloc" jdbcType="VARCHAR" />
+    <result column="count" property="count" jdbcType="INTEGER" />
+    <result column="telephone" property="telephone" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    outpatientId, outpatientName, sectionId, sectionName, doctorName, outpatientLoc, 
+    count, telephone
+  </sql>
+  <select id="selectByExample" resultMap="OutpatientBaseResultMap" parameterType="cn.edu.bupt.springmvc.web.model.OutpatientExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from outpatient
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="OutpatientBaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from outpatient
+    where outpatientId = #{outpatientid,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from outpatient
+    where outpatientId = #{outpatientid,jdbcType=CHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.edu.bupt.springmvc.web.model.OutpatientExample" >
+    delete from outpatient
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.edu.bupt.springmvc.web.model.Outpatient" >
+    insert into outpatient (outpatientId, outpatientName, sectionId, 
+      sectionName, doctorName, outpatientLoc, 
+      count, telephone)
+    values (#{outpatientid,jdbcType=CHAR}, #{outpatientname,jdbcType=VARCHAR}, #{sectionid,jdbcType=CHAR}, 
+      #{sectionname,jdbcType=VARCHAR}, #{doctorname,jdbcType=VARCHAR}, #{outpatientloc,jdbcType=VARCHAR}, 
+      #{count,jdbcType=INTEGER}, #{telephone,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.edu.bupt.springmvc.web.model.Outpatient" >
+    insert into outpatient
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="outpatientid != null" >
+        outpatientId,
+      </if>
+      <if test="outpatientname != null" >
+        outpatientName,
+      </if>
+      <if test="sectionid != null" >
+        sectionId,
+      </if>
+      <if test="sectionname != null" >
+        sectionName,
+      </if>
+      <if test="doctorname != null" >
+        doctorName,
+      </if>
+      <if test="outpatientloc != null" >
+        outpatientLoc,
+      </if>
+      <if test="count != null" >
+        count,
+      </if>
+      <if test="telephone != null" >
+        telephone,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="outpatientid != null" >
+        #{outpatientid,jdbcType=CHAR},
+      </if>
+      <if test="outpatientname != null" >
+        #{outpatientname,jdbcType=VARCHAR},
+      </if>
+      <if test="sectionid != null" >
+        #{sectionid,jdbcType=CHAR},
+      </if>
+      <if test="sectionname != null" >
+        #{sectionname,jdbcType=VARCHAR},
+      </if>
+      <if test="doctorname != null" >
+        #{doctorname,jdbcType=VARCHAR},
+      </if>
+      <if test="outpatientloc != null" >
+        #{outpatientloc,jdbcType=VARCHAR},
+      </if>
+      <if test="count != null" >
+        #{count,jdbcType=INTEGER},
+      </if>
+      <if test="telephone != null" >
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.edu.bupt.springmvc.web.model.OutpatientExample" resultType="java.lang.Integer" >
+    select count(*) from outpatient
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update outpatient
+    <set >
+      <if test="record.outpatientid != null" >
+        outpatientId = #{record.outpatientid,jdbcType=CHAR},
+      </if>
+      <if test="record.outpatientname != null" >
+        outpatientName = #{record.outpatientname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sectionid != null" >
+        sectionId = #{record.sectionid,jdbcType=CHAR},
+      </if>
+      <if test="record.sectionname != null" >
+        sectionName = #{record.sectionname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.doctorname != null" >
+        doctorName = #{record.doctorname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.outpatientloc != null" >
+        outpatientLoc = #{record.outpatientloc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.count != null" >
+        count = #{record.count,jdbcType=INTEGER},
+      </if>
+      <if test="record.telephone != null" >
+        telephone = #{record.telephone,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update outpatient
+    set outpatientId = #{record.outpatientid,jdbcType=CHAR},
+      outpatientName = #{record.outpatientname,jdbcType=VARCHAR},
+      sectionId = #{record.sectionid,jdbcType=CHAR},
+      sectionName = #{record.sectionname,jdbcType=VARCHAR},
+      doctorName = #{record.doctorname,jdbcType=VARCHAR},
+      outpatientLoc = #{record.outpatientloc,jdbcType=VARCHAR},
+      count = #{record.count,jdbcType=INTEGER},
+      telephone = #{record.telephone,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.edu.bupt.springmvc.web.model.Outpatient" >
+    update outpatient
+    <set >
+      <if test="outpatientname != null" >
+        outpatientName = #{outpatientname,jdbcType=VARCHAR},
+      </if>
+      <if test="sectionid != null" >
+        sectionId = #{sectionid,jdbcType=CHAR},
+      </if>
+      <if test="sectionname != null" >
+        sectionName = #{sectionname,jdbcType=VARCHAR},
+      </if>
+      <if test="doctorname != null" >
+        doctorName = #{doctorname,jdbcType=VARCHAR},
+      </if>
+      <if test="outpatientloc != null" >
+        outpatientLoc = #{outpatientloc,jdbcType=VARCHAR},
+      </if>
+      <if test="count != null" >
+        count = #{count,jdbcType=INTEGER},
+      </if>
+      <if test="telephone != null" >
+        telephone = #{telephone,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where outpatientId = #{outpatientid,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.edu.bupt.springmvc.web.model.Outpatient" >
+    update outpatient
+    set outpatientName = #{outpatientname,jdbcType=VARCHAR},
+      sectionId = #{sectionid,jdbcType=CHAR},
+      sectionName = #{sectionname,jdbcType=VARCHAR},
+      doctorName = #{doctorname,jdbcType=VARCHAR},
+      outpatientLoc = #{outpatientloc,jdbcType=VARCHAR},
+      count = #{count,jdbcType=INTEGER},
+      telephone = #{telephone,jdbcType=VARCHAR}
+    where outpatientId = #{outpatientid,jdbcType=CHAR}
+  </update>
+</mapper>
